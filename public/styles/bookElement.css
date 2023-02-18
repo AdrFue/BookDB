@@ -1,0 +1,12 @@
+.bookElement {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 300px;
+}
+
+.bookImg img {
+    width: 100%;
+    height: 100%;
+}

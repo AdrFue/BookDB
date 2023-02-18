@@ -1,0 +1,40 @@
+<% 
+  function getDate(curDate) {
+    let date = curDate;
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+    let day = date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate();
+    return year + '-' + month + '-' + day;
+  }
+  
+  let i = 0;
+  let bookAuthors;
+  books.forEach(book => {
+    bookAuthors = authors.filter(author => author.a_bl_id === book.bl_id).map(item => item.a_name).join(', ');
+%>
+  <div class="bookElement">
+    <div class="bookImg">
+      <img src="<%= book.bl_img_link %>"> 
+    </div>
+    <div class="bookInfo">
+      <h3><%= book.bl_title %></h3>
+      <p>by <%= bookAuthors %></p>
+      <p>ISBN: <%= book.bl_isbn %></p>
+      <p>Publisher: <%= book.bl_publisher %></p>
+      <p>Published Date: <%= book.bl_published_date %></p>
+      <p><a href="<%= book.bl_info_link %>" target="_blank">More Infos</a></p>
+      <p>Pages: <%= book.bl_pages %></p>
+      <% if (book.bl_global_rating == null) { %>
+        <p>Global Rating: No Rating found</p>
+      <% } else { %>
+        <p>Global Rating: <%= book.bl_global_rating %> / 5</p>
+      <% } %>
+      <p><textarea placeholder="Key Notes..."><%= book.bl_key_notes %></textarea></p>
+      <p>Started Reading: <input type="date" name="reading_start" value="<%= getDate(book.bl_reading_start) %>"></p>
+      <p>Finished Reading: <input type="date" name="reading_end" value="<%= getDate(book.bl_reading_end) %>"></p>
+    </div>
+  </div>
+<%
+    i++;
+  });
+%>
