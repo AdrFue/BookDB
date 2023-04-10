@@ -1,17 +1,22 @@
+
+<link rel="stylesheet" href="styles/bookElement.css">
 <% 
   function getDate(curDate) {
+    if (curDate == null) {
+      return '';
+    }
     let date = curDate;
     let year = date.getFullYear();
     let month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     let day = date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate();
     return year + '-' + month + '-' + day;
   }
-  
   let i = 0;
   let bookAuthors;
   books.forEach(book => {
     bookAuthors = authors.filter(author => author.a_bl_id === book.bl_id).map(item => item.a_name).join(', ');
 %>
+
   <div class="bookElement">
     <div class="bookImg">
       <img src="<%= book.bl_img_link %>"> 

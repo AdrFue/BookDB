@@ -1,13 +1,23 @@
 <%- include('partials/header'); %>
   
-  <link rel="stylesheet" href="styles/bookElement.css">
 
   <title>Read Books</title>
 </head>
 <body>
+  <%- include ('partials/search-book'); %>
   <h1>Read Books</h1>
   Hello World!
   <a href="/">Home</a>
-  <%- include('partials/bookElement'); %>
+  <%
+    if (type == 'bookSearchResults'){
+  %>
+<%- include('partials/bookSearchResults') %>
+  <%
+    } else if (type == 'readBooks') {
+  %>
+<%- include('partials/readBooks'); %>
+  <%
+    }
+  %>
 
 <%- include('partials/footer'); %>

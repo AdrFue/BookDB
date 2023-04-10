@@ -1,0 +1,33 @@
+<% 
+
+  results.forEach(book => {
+    const authors = book.authors.join(', ');
+%>
+  <link rel="stylesheet" href="styles/bookSearchResults.css">
+  <div class="bookSearchElements">
+    <div class="bookImg">
+      <img src="<%= book.thumbnail %>"> 
+    </div>
+    <div class="bookInfo">
+      <h3><%= book.title %></h3>
+      <p>by <%= authors %></p>
+      <p>ISBN: <%= book.isbn %></p>
+      <p>Publisher: <%= book.publisher %></p>
+      <p>Published Date: <%= book.published %></p>
+      <p>Pages: <%= book.pages %></p>
+    </div>
+    <form method="post" action="/add-book">
+      <input type="hidden" name="title" value="<%= book.title %>">
+      <input type="hidden" name="authors" value="<%= authors %>">
+      <input type="hidden" name="isbn" value="<%= book.isbn %>">
+      <input type="hidden" name="publisher" value="<%= book.publisher %>">
+      <input type="hidden" name="published" value="<%= book.published %>">
+      <input type="hidden" name="pages" value="<%= book.pages %>">
+      <input type="hidden" name="imgLink" value="<%= book.thumbnail %>">
+      <input type="hidden" name="infoLink" value="<%= book.infoLink %>">
+      <input type="submit" value="Add Book">
+    </form>
+  </div>
+<%
+  });
+%>

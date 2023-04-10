@@ -1,7 +1,7 @@
-let mysql = require('mysql2')
+const mysql = require('mysql2')
 require('dotenv').config()
 
-let con = mysql.createConnection({
+const con = mysql.createPool({
   host     : process.env.HOST,
   port     : process.env.PORT,
   user     : process.env.USER,
@@ -21,6 +21,4 @@ function qry(qry) {
   });
 };
 
-module.exports = {
-  qry
-};
+module.exports = {qry};
