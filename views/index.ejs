@@ -1,7 +1,21 @@
 <%- include('partials/header'); %>
+  
 
-Hello World!
-<a href="/list">List of Read Books</a>
-
+  <title>Books</title>
+</head>
+<body>
+  <%- include ('partials/search-book'); %>
+  <h1>Books</h1>
+  <%
+    if (type == 'bookSearchResults'){
+  %>
+<%- include('partials/bookSearchResults') %>
+  <%
+    } else if (type == 'finishedBooks') {
+  %>
+<%- include('partials/finishedBooks'); %>
+  <%
+    }
+  %>
 
 <%- include('partials/footer'); %>

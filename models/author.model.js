@@ -13,4 +13,10 @@ module.exports = class Book {
     }
   }
 
+  static async deleteByBookId(bookId) {
+    return await db.qry(
+      'DELETE FROM authors ' +
+      'WHERE a_bl_id = ' + bookId.id);
+  }
+
 }

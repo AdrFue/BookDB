@@ -26,7 +26,7 @@
       <p>by <%= bookAuthors %></p>
       <p>ISBN: <%= book.bl_isbn %></p>
       <p>Publisher: <%= book.bl_publisher %></p>
-      <p>Published Date: <%= book.bl_published_date %></p>
+      <p>Published Date: <%= getDate(book.bl_published_date) %></p>
       <p><a href="<%= book.bl_info_link %>" target="_blank">More Infos</a></p>
       <p>Pages: <%= book.bl_pages %></p>
       <% if (book.bl_global_rating == null) { %>
@@ -34,9 +34,16 @@
       <% } else { %>
         <p>Global Rating: <%= book.bl_global_rating %> / 5</p>
       <% } %>
-      <p><textarea placeholder="Key Notes..."><%= book.bl_key_notes %></textarea></p>
-      <p>Started Reading: <input type="date" name="reading_start" value="<%= getDate(book.bl_reading_start) %>"></p>
-      <p>Finished Reading: <input type="date" name="reading_end" value="<%= getDate(book.bl_reading_end) %>"></p>
+      <form method="post" action="/update-book">
+        <input type="hidden" name="id" value="<%= book.bl_id %>">
+        <p><textarea name="key_notes" placeholder="Key Notes..."><%= book.bl_key_notes %></textarea></p>
+        <p>Started Reading: <input type="date" name="reading_start" value="<%= getDate(book.bl_reading_start) %>"></p>
+        <p>Finished Reading: <input type="date" name="reading_end" value="<%= getDate(book.bl_reading_end) %>"></p>
+        <input type="submit" value="Update">
+      </form>
+      <form method="post" action="/delete-book">
+        <input type="hidden" name="id" value="<%= book.bl_id %>">
+        <input type="submit" value="Delete">
     </div>
   </div>
 <%

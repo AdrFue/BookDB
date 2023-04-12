@@ -9,10 +9,10 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const list = async (req, res) => {
   const books = await Book.fetchAll();
   const authors = await Author.fetchAll();
-  res.render('list', {
+  res.render('index', {
     books: books,
     authors: authors,
-    type: 'readBooks'
+    type: 'finishedBooks'
   })
 }
 
@@ -59,36 +59,69 @@ const search = async (req, res) => {
         } else {
           tns[curId].isbn = "n/a";
         }
-        tns[curId].published = vi.publishedDate;
+        // check published date
+        if (vi.publishedDate.length == 10) {
+          tns[curId].published = vi.publishedDate;
+        } else if (vi.publishedDate.length == 7) {
+          tns[curId].published = vi.publishedDate + "-01";
+        } else if (vi.publishedDate.length == 4) {
+          tns[curId].published = vi.publishedDate + "-01-01";
+        } else {
+          tns[curId].published = "n/a";
+        }
+
         tns[curId].publisher = vi.publisher;
-        tns[curId].pages = vi.pageCount;
+        if (typeof vi.pageCount != 'undefined') {
+          tns[curId].pages = vi.pageCount;
+        } else {
+          tns[curId].pages = -1;
+        }
+        tns[curId].infoLink = vi.infoLink;
+        if (typeof vi.averageRating != "undefined") {
+          tns[curId].globalRating = vi.averageRating;
+        } else {
+          tns[curId].globalRating = -1;
+        }
 
       }
-      res.render('list', {
+      res.render('index', {
         results: tns,  
         type: 'bookSearchResults'
       })
     })
  
-
 }
 
 const add = async (req, res) => {
   const bookInsert = await Book.add(req.body)
   const authors = req.body.authors.split(', ');
   await Author.add(authors, bookInsert.insertId)
-  res.redirect('/list');
-
+  res.redirect('/');
 }
 
-const deleteById = (req, res) => {
-  return db.qry('DELETE FROM books WHERE id = ?', [id]);
+const updateById = async (req, res) => {
+  console.log(req.body);
+  if (req.body.reading_start == '') {
+    req.body.reading_start = '0001-01-01';
+  }
+  if (req.body.reading_end == '') {
+    req.body.reading_end = '0001-01-01';
+  }
+  await Book.updateById(req.body)
+  res.redirect('/');
+}
+
+const deleteById = async (req, res) => {
+  await Author.deleteByBookId(req.body)
+  await Book.deleteById(req.body)
+  res.redirect('/');
 }
 
 
 module.exports = {
   list,
   search,
+  updateById,
   add,
-  deleteById   
+  deleteById  
 }
