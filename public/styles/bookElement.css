@@ -1,12 +1,137 @@
-.bookElement {
-  width: 100%;
-  height: 250px;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 300px;
+input[type="submit"] {
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0.5, 0.5, 0.5, 0.2);
 }
 
-.bookImg img {
-    width: 100%;
-    height: 100%;
+
+.myContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bookElement {
+  width: 820px; /* 150 + 300 + 300 + 2*10 + 2*25 */
+  border: 3px solid rgba(0.5, 0.5, 0.5, 0.2);
+  border-radius: 75px;
+  margin: 10px 0px;
+  padding: 25px;
+  display: grid;
+  grid-template-columns: 150px 300px 300px;
+  row-gap: 5px;
+  grid-template-areas:
+    "img title title"
+    "img author isbn"
+    "img publisher published"
+    "img pages rating"
+    "img updateForm updateForm"
+    "img delete moreInfo";
+}
+
+.bUpdateFormGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 5px;
+  grid-template-areas:
+    "myNotes myNotes"
+    "readStart update "
+    "readEnd update";
+}
+
+.bTitle{
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+.bMyNotes > textarea {
+  width: 95%;
+  margin: 2.5% 2.5% 0% 2.5%;
+  height: 75px;
+}
+
+
+.bUpdate, .bDelete, .bMoreInfo {
+  text-align: center;
+  align-self: center;
+}
+
+.bDelete {
+  margin:5%;  
+}
+
+.bDelete input {
+  background-color: firebrick;
+  color: #ffffff;
+}
+
+.bUpdate input {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+.bReadStart, .bReadEnd, .bMoreInfo {
+  text-align: right;
+}
+
+.bookImg {
+  margin: auto 0;
+  grid-area: img;
+}
+
+.bTitle {
+  grid-area: title;
+}
+
+.bAuthor {
+  grid-area: author;
+}
+
+.bIsbn {
+  grid-area: isbn;
+}
+
+.bPublisher {
+  grid-area: publisher;
+}
+
+.bPublished {
+  grid-area: published;
+}
+
+.bPages {
+  grid-area: pages;
+}
+
+.bRating {
+  grid-area: rating;
+}
+
+
+.bUpdateForm {
+  grid-area: updateForm;
+}
+
+.bMyNotes {
+  grid-area: myNotes;
+}
+
+.bReadStart {
+  grid-area: readStart;
+} 
+
+.bReadEnd {
+  grid-area: readEnd;
+}
+
+.bUpdate {
+  grid-area: update;
+}
+
+.bDelete {
+  grid-area: delete;
+}
+
+.bMoreInfo {
+  grid-area: moreInfo;
 }

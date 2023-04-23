@@ -27,7 +27,7 @@ module.exports = class Book {
   }
   
   static async fetchAll() {
-    return await db.qry('SELECT * FROM books');
+    return await db.qry('SELECT * FROM books ORDER BY bl_reading_end DESC, bl_reading_start DESC, bl_title ASC');
   }
 
 }

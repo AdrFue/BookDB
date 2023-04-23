@@ -2,7 +2,6 @@ const Book = require('../models/book.model.js');
 const Author = require('../models/author.model.js');
 const bookApi = 'https://www.googleapis.com/books/v1/volumes?q=';
 const apiKey = process.env.BOOKAPIKEY;
-const maxRes = 10;
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 
@@ -17,8 +16,20 @@ const list = async (req, res) => {
 }
 
 const search = async (req, res) => {
+  let qry = '';
+  if (typeof req.query.isbn != "undefined") {
+    qry = 'isbn:' + req.query.isbn;
+  } else if (typeof req.query.title != "undefined") {
+    qry = req.query.title;
+  } else {
+    res.redirect('/');
+  }
+  let mr = 10;
+  if (typeof req.query.mr != "undefined") {
+    mr = req.query.mr;
+  }
 
-  const link = bookApi + req.query.title + '&maxResults=' + maxRes + '&key=' + apiKey;
+  const link = bookApi + qry + '&maxResults=' + mr + '&key=' + apiKey;
   const response = await fetch(link)
     .then(res => res.json())
     .then(googleBooks => {
@@ -100,7 +111,6 @@ const add = async (req, res) => {
 }
 
 const updateById = async (req, res) => {
-  console.log(req.body);
   if (req.body.reading_start == '') {
     req.body.reading_start = '0001-01-01';
   }

@@ -1,13 +1,11 @@
 <form method="get" action="search-book">
-    <input type="text" name="title" placeholder="Title">
-    <input type="submit" value="Search Book">
+    <input type="text" name="title" placeholder="Title, Author, ...">
+    <input type="number" name="mr" value="10" min="1" max="20">
+    <input type="submit" value="Search">
 </form>
-
-<div>
-  Suchergebnisse:
-  <ul>
-
-  </ul>
-</div>
+<form method="get" action="search-book">
+  <input type="text" name="isbn" placeholder="ISBN">
+  <input type="submit" value="Search by ISBN">
+</form>
 
 
